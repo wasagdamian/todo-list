@@ -9,5 +9,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'todo-list';
+  title = 'Lista zadań';
+
+  get footer(): string {
+    return '2024 © Lista zadań zbudowana w Angularze.'
+  }
 }

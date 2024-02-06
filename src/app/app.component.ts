@@ -9,6 +9,10 @@ export class AppComponent {
   title = 'Lista zadań';
 
   get footer(): string {
-    return '2024 © Lista zadań zbudowana w Angularze.'
+    return ' © Lista zadań zbudowana w Angularze.'
+  }
+
+  getDate(): Date {
+    return new Date();
   }
 }

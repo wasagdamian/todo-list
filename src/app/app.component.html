@@ -63,6 +63,10 @@
     <p>{{ 'jesień' | i18nSelect: translate }}</p>
     <p>TitleCasePipe</p>
     <p> {{'źLe sFORMAtowaNy teKST' | titlecase}}</p>
+    <p>CurrencyPipe</p>
+    <p>{{ price | currency }}</p>
+    <p>{{ price | currency: 'PLN' }}</p>
+    <p>{{ price | currency: 'USD' }}</p>
   </div>
 
 

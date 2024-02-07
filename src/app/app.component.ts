@@ -7,6 +7,7 @@ import { Task } from './task';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  taskName: string = '';
   title = 'Lista zadań';
   num = 845.4564563;
   translate = {
@@ -48,6 +49,17 @@ export class AppComponent {
 
   onKeyUp(event: KeyboardEvent){
     const target = event.target as HTMLInputElement
-    console.log(target.value);
+    this.taskName = target.value;
   }
+
+  createTask(){
+    const task: Task = {
+      name: this.taskName,
+      deadline: '2024-02-07',
+      done: false,
+    };
+    this.tasks.push(task);
+  }
+
+
 }

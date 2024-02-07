@@ -15,15 +15,12 @@
     <div class="row">
       <input class="col s8" type="text" placeholder="Dodaj zadanie i datę wykonania"/>
       <input class="col s2 disabled" type="date"/>
-      <button class="btn-floating">+
-      </button>
+      <button class="btn-floating"></button>
     </div>
 
     <ul class="collection">
-      <li class="collection-item row">
-          <span class="col s10">
-            1. Siłownia - 02.01 czwartek
-          </span>
+      <li class="collection-item row" *ngFor="let task of tasks">
+          <span class="col s10">{{ task.name}} - {{task.deadline}}</span>
         <div class="col s2 right-align">
           <button class="btn-floating btn-small red mr-5">
             <i class="material-icons">remove</i>

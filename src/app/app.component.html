@@ -48,6 +48,14 @@
     <p>{{ '07-15-1410' | date: 'fullDate'}}</p>
     <p>{{ '07-15-1410' | date: 'fullDate':'':'en' | uppercase}}</p>
     <p>{{ '07-15-1410' | date: 'fullDate':'':'bn'}}</p>
+    <p>Bez formatowania</p>
+    <p>{{ num }}</p>
+    <p>Format</p>
+    <p>{{ num | number }}</p>
+    <p>{{ num | number: '2.4-5' }}</p>
+    <p>{{ num | number: '2.4-5': 'pl' }}</p>
+    <p>{{ num | number: '2.4': 'bn' }}</p>
+    <p>{{ num | number: '1.0-0' }}</p>
   </div>
 
 

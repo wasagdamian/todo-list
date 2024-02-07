@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Lista zadań';
+  num = 845.4564563
 
   get footer(): string {
     return ' © Lista zadań zbudowana w Angularze.'

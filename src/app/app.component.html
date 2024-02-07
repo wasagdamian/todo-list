@@ -70,6 +70,10 @@
     <p>Interpolacja w formacie json: {{translate | json}}</p>
     <p> PercentPipe</p>
     <p> 0.01 to {{0.01 | percent}}</p>
+    <p> KeyValuePipe</p>
+    <div *ngFor="let item of translate | keyvalue">
+      <p>{{ item.key }} : {{ item.value }}</p>
+    </div>
   </div>
 
 

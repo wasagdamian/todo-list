@@ -20,7 +20,7 @@
 
     <ul class="collection">
       <li class="collection-item row" *ngFor="let task of tasks">
-          <span class="col s10">{{ task.name}} - {{task.deadline}}</span>
+          <span class="col s10">{{ task.name}} - {{task.deadline | date: 'd.MM EEEE yyyy':'':'pl'}}</span>
         <div class="col s2 right-align">
           <button class="btn-floating btn-small red mr-5">
             <i class="material-icons">remove</i>

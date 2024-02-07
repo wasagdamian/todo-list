@@ -41,4 +41,8 @@ export class AppComponent {
   getDate(): Date {
     return new Date();
   }
+
+  clearTasks() {
+    this.tasks = [];
+  }
 }

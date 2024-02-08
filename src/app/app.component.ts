@@ -37,6 +37,10 @@ export class AppComponent {
     },
   ];
 
+  constructor(){
+    this.sortTasks()
+  }
+
   get footer(): string {
     return ' © Lista zadań zbudowana w Angularze.'
   }
@@ -63,10 +67,26 @@ export class AppComponent {
     this.tasks.push(task);
     this.taskDate = '';
     this.taskName = '';
+    this.sortTasks()
   }
 
   switchEditMode() {
     this.editMode = !this.editMode;
+  }
+
+  markTaskAsDone(task: Task) {
+    task.done = true;
+    this.sortTasks()
+    this.sortTasks()
+  }
+
+  removeTask(task: Task) {
+    this.tasks = this.tasks.filter(e => e != task)
+  }
+
+  private sortTasks() {
+    this.tasks = this.tasks.sort((a: Task, b: Task) =>
+      a.done === b.done ? 0 : a.done ? 1 : -1)
   }
 
 

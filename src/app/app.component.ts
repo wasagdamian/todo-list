@@ -7,7 +7,9 @@ import { Task } from './task';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  taskName: string = '';
+  editMode: boolean = false;
+  taskName: string = 'Sugerowane zadanie codzienne: sprzątanie';
+  taskDate: string = '';
   title = 'Lista zadań';
   num = 845.4564563;
   translate = {
@@ -26,7 +28,7 @@ export class AppComponent {
     {
       name: 'Zakupy',
       deadline: '2024-02-08',
-      done: false,
+      done: true,
     },
     {
       name: 'Basen',
@@ -47,18 +49,24 @@ export class AppComponent {
     this.tasks = [];
   }
 
-  onKeyUp(event: KeyboardEvent){
+  onKeyUp(event: KeyboardEvent) {
     const target = event.target as HTMLInputElement
     this.taskName = target.value;
   }
 
-  createTask(){
+  createTask() {
     const task: Task = {
       name: this.taskName,
-      deadline: '2024-02-07',
+      deadline: this.taskDate,
       done: false,
     };
     this.tasks.push(task);
+    this.taskDate = '';
+    this.taskName = '';
+  }
+
+  switchEditMode() {
+    this.editMode = !this.editMode;
   }
 
 

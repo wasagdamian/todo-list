@@ -6,70 +6,81 @@
   </nav>
   <div class="content">
     <div class="row">
-      <button class="btn col s2 offset-s10">Dodaj zadanie
-      </button>
-      <button class="btn col s2 offset-s10">Zakończ
-      </button>
+      <ng-container *ngIf="editMode; then editOn; else editOff"></ng-container>
+      <ng-template #editOff>
+        <button class="btn col s2 offset-s10" (click)="switchEditMode()">Dodaj zadanie
+        </button>
+      </ng-template>
+      <ng-template #editOn>
+        <button class="btn col s2 offset-s10" (click)="switchEditMode()">Zakończ
+        </button>
+      </ng-template>
     </div>
 
-    <div class="row">
-      <input class="col s8" type="text" placeholder="Dodaj zadanie i datę wykonania" (keyup)="onKeyUp($event)"/>
-      <input class="col s2 disabled" type="date"/>
-      <button class="btn-floating" (click)="createTask()">+</button>
+    <div class="row" *ngIf="editMode">
+      <input class="col s8" type="text" placeholder="Dodaj zadanie i datę wykonania" [(ngModel)]="taskName" />
+      <input class="col s2 disabled" type="date" [(ngModel)]="taskDate" />
+      <button class="btn-floating" (click)="createTask()" [disabled]="taskName === '' || taskDate === ''">+</button>
     </div>
 
-    <ul class="collection">
-      <li class="collection-item row" *ngFor="let task of tasks; let i = index">
+    <ul class="collection" *ngIf="tasks.length >0; else noTasks">
+      <ng-container *ngFor="let task of tasks; let i = index" [ngSwitch]="task.done">
+        <li class="collection-item row" *ngSwitchCase="false">
           <span class="col s10">{{i+1}}. {{ task.name}} - {{task.deadline | date: 'd.MM EEEE yyyy':'':'pl'}}</span>
-        <div class="col s2 right-align">
-          <button class="btn-floating btn-small red mr-5">
-            <i class="material-icons">remove</i>
-          </button>
-          <button class="btn-floating btn-small green">
-            <i class="material-icons">check</i>
-          </button>
-        </div>
-      </li>
-      <li class="collection-item row">
-        <span class="col done">Sprzątnie strychu</span>
-      </li>
+          <div class="col s2 right-align">
+            <button class="btn-floating btn-small red mr-5">
+              <i class="material-icons">remove</i>
+            </button>
+            <button class="btn-floating btn-small green">
+              <i class="material-icons">check</i>
+            </button>
+          </div>
+        </li>
+        <li class="collection-item row" *ngSwitchCase="true">
+          <span class="col done">{{ task.name}} </span>
+        </li>
+      </ng-container>
     </ul>
 
-    <h1>Dzisiaj brak zadań :-)</h1>
+    <ng-template #noTasks>
+      <h1>Dzisiaj brak zadań :-)</h1>
+    </ng-template>
 
-    <button class="btn red" (click)="clearTasks()">
+    <button class="btn red" (click)="clearTasks()" [disabled]="tasks.length === 0">
       Wyczyść
     </button>
 
-    <h3>Lokalizacja</h3>
-    <p>{{ '07-15-1410' | date: 'fullDate'}}</p>
-    <p>{{ '07-15-1410' | date: 'fullDate':'':'en' | uppercase}}</p>
-    <p>{{ '07-15-1410' | date: 'fullDate':'':'bn'}}</p>
-    <p>Bez formatowania</p>
-    <p>{{ num }}</p>
-    <p>Format</p>
-    <p>{{ num | number }}</p>
-    <p>{{ num | number: '2.4-5' }}</p>
-    <p>{{ num | number: '2.4-5': 'pl' }}</p>
-    <p>{{ num | number: '2.4': 'bn' }}</p>
-    <p>{{ num | number: '1.0-0' }}</p>
-    <p>I18nSelectPipe</p>
-    <p>{{ 'zima' | i18nSelect: translate }}</p>
-    <p>{{ 'wiosna' | i18nSelect: translate }}</p>
-    <p>{{ 'lato' | i18nSelect: translate }}</p>
-    <p>{{ 'jesień' | i18nSelect: translate }}</p>
-    <p>TitleCasePipe</p>
-    <p> {{'źLe sFORMAtowaNy teKST' | titlecase}}</p>
-    <p>CurrencyPipe</p>
-    <p>{{ price | currency }}</p>
-    <p>{{ price | currency: 'PLN' }}</p>
-    <p>{{ price | currency: 'USD' }}</p>
-    <p>Interpolacja w formacie json: {{translate | json}}</p>
-    <p> PercentPipe</p>
-    <p> 0.01 to {{0.01 | percent}}</p>
-    <p> KeyValuePipe</p>
-    <div *ngFor="let item of translate | keyvalue">
-      <p>{{ item.key }} : {{ item.value }}</p>
+    <div [hidden]="true">
+      <h3>Lokalizacja</h3>
+      <p>{{ '07-15-1410' | date: 'fullDate'}}</p>
+      <p>{{ '07-15-1410' | date: 'fullDate':'':'en' | uppercase}}</p>
+      <p>{{ '07-15-1410' | date: 'fullDate':'':'bn'}}</p>
+      <p>Bez formatowania</p>
+      <p>{{ num }}</p>
+      <p>Format</p>
+      <p>{{ num | number }}</p>
+      <p>{{ num | number: '2.4-5' }}</p>
+      <p>{{ num | number: '2.4-5': 'pl' }}</p>
+      <p>{{ num | number: '2.4': 'bn' }}</p>
+      <p>{{ num | number: '1.0-0' }}</p>
+      <p>I18nSelectPipe</p>
+      <p>{{ 'zima' | i18nSelect: translate }}</p>
+      <p>{{ 'wiosna' | i18nSelect: translate }}</p>
+      <p>{{ 'lato' | i18nSelect: translate }}</p>
+      <p>{{ 'jesień' | i18nSelect: translate }}</p>
+      <p>TitleCasePipe</p>
+      <p> {{'źLe sFORMAtowaNy teKST' | titlecase}}</p>
+      <p>CurrencyPipe</p>
+      <p>{{ price | currency }}</p>
+      <p>{{ price | currency: 'PLN' }}</p>
+      <p>{{ price | currency: 'USD' }}</p>
+      <p>Interpolacja w formacie json: {{translate | json}}</p>
+      <p> PercentPipe</p>
+      <p> 0.01 to {{0.01 | percent}}</p>
+      <p> KeyValuePipe</p>
+      <div *ngFor="let item of translate | keyvalue">
+        <p>{{ item.key }} : {{ item.value }}</p>
+      </div>
     </div>
   </div>
 
